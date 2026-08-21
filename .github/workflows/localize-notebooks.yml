@@ -21,19 +21,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Validate notebook JSON and Japanese residue
-        run: |
-          python - <<'PY'
-          import json, pathlib, re
-          jp = re.compile(r'[\u3040-\u30ff]')
-          failed = []
-          for p in pathlib.Path('.').glob('*.ipynb'):
-              data = json.loads(p.read_text(encoding='utf-8'))
-              text = json.dumps(data, ensure_ascii=False)
-              if jp.search(text):
-                  failed.append(str(p))
-              print('OK JSON:', p)
-          if failed:
-              raise SystemExit('Japanese residue: ' + ', '.join(failed))
-          print('All notebooks parse and no hiragana/katakana remains.')
-          PY
+      - name: Validate notebooks
+        run: python tools/translate_notebooks_zh.py
