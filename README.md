@@ -1,24 +1,24 @@
-# Policy_Optimization_Tutorial
+# Policy Optimization Tutorial 中文版
 
-这里公开一组用于学习策略优化（主要面向强化学习）的 Jupyter Notebook。
+本仓库整理策略优化与强化学习的入门教程，采用 Jupyter Notebook 形式，从黑盒策略搜索逐步过渡到 Policy Gradient、Actor-Critic 和 TD3。
 
-本教程强调通过数值实验理解策略优化：从进化策略开始，逐步学习策略梯度、Actor-Critic、确定性策略梯度以及 TD3，并配套练习 Notebook 用于比较算法、做消融实验和分析超参数影响。
+## 推荐学习顺序
 
-## 学习用 Notebook
+1. `1_policy_optimization_introduction.ipynb`：策略优化导论；从 Gymnasium、rollout、参数化策略和 CMA-ES 黑盒策略搜索开始。
+2. `2_policy_gradient.ipynb`：Policy Gradient 与 REINFORCE；介绍状态/动作价值、策略梯度定理、Monte Carlo 回报、baseline 和 Advantage。
+3. `3_actor_critic.ipynb`：Actor-Critic；介绍 Bellman 递归、TD target、TD error、bootstrapping、在线与批量更新。
+4. `4_deterministic_policy_gradient.ipynb`：确定性策略梯度与 TD3；介绍 Replay Buffer、Twin Critics、Target Policy Smoothing、Delayed Policy Update 与 Target Network。
 
-建议按照以下顺序学习：
+## 配套练习
 
-1. `1_policy_optimization_introduction.ipynb`：策略优化导论与基于进化策略的策略搜索
-2. `2_policy_gradient.ipynb`：策略梯度法（Policy Gradient）
-3. `3_actor_critic.ipynb`：Actor-Critic 方法
-4. `4_deterministic_policy_gradient.ipynb`：确定性策略梯度（Deterministic Policy Gradient）与 TD3
+1. `ex1_evolutionary_policy_optimization.ipynb`：进化策略/CMA-ES 策略优化实验。
+2. `ex2_actor_critic.ipynb`：在线与批量 Actor-Critic 对比，以及 Actor/Critic 模型容量实验。
+3. `ex3_td3.ipynb`：TD3 消融实验和连续控制算法比较。
 
-## 练习用 Notebook
+## 术语约定
 
-1. `ex1_evolutionary_policy_optimization.ipynb`：完成第 1 个学习 Notebook 后的扩展实验
-2. `ex2_actor_critic.ipynb`：完成第 2、3 个学习 Notebook 后的 Actor-Critic 对比实验
-3. `ex3_td3.ipynb`：完成第 4 个学习 Notebook 后的 TD3 消融实验与算法比较
+为便于和论文、代码对应，关键术语采用“标准英文名 + 中文解释”的方式，例如 Policy Gradient（策略梯度）、Actor-Critic、Temporal-Difference / TD（时序差分）、Replay Buffer（经验回放缓冲区）、Target Network（目标网络）、Deterministic Policy Gradient（确定性策略梯度）和 TD3。
 
 ## 中文版说明
 
-本分支将原仓库中的日语教学内容整理为简体中文，包括 Notebook 的 Markdown 说明、教学性代码注释和必要的 docstring。标准强化学习术语保留常用英文名称，例如 Policy Gradient、Actor-Critic、Deterministic Policy Gradient、TD3、Replay Buffer、Target Network 等；数学公式、变量名、算法结构和实验设置保持不变。
+本中文版本不是逐字机械翻译，而是在保持原教程知识主线、数学关系和算法逻辑的基础上进行中文教学化整理。重复代码和环境准备部分适当压缩，重点保留策略优化、价值估计、策略梯度、TD 学习和连续控制算法中最值得理解的内容，并补充了更清晰的章节衔接与实验建议。
