@@ -1,31 +1,26 @@
-name: Localize notebooks to Chinese
+name: Validate Chinese notebooks
 
 on:
   push:
     branches:
       - docs/chinese-localization
+  pull_request:
     paths:
-      - 'tools/translate_notebooks_zh.py'
-      - '.github/workflows/localize-notebooks.yml'
+      - '*.ipynb'
+      - 'README.md'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  localize:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: docs/chinese-localization
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install translator
-        run: pip install deep-translator
-      - name: Translate notebooks
-        run: python tools/translate_notebooks_zh.py
       - name: Validate notebook JSON and Japanese residue
         run: |
           python - <<'PY'
@@ -37,15 +32,8 @@ jobs:
               text = json.dumps(data, ensure_ascii=False)
               if jp.search(text):
                   failed.append(str(p))
+              print('OK JSON:', p)
           if failed:
               raise SystemExit('Japanese residue: ' + ', '.join(failed))
           print('All notebooks parse and no hiragana/katakana remains.')
           PY
-      - name: Commit localized notebooks
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- 1_policy_optimization_introduction.ipynb 2_policy_gradient.ipynb 3_actor_critic.ipynb 4_deterministic_policy_gradient.ipynb ex1_evolutionary_policy_optimization.ipynb ex2_actor_critic.ipynb ex3_td3.ipynb translation_report.txt
-          git diff --cached --quiet && exit 0
-          git commit -m 'docs: translate all policy optimization notebooks to Chinese'
-          git push origin HEAD:docs/chinese-localization
