@@ -5,6 +5,7 @@ from pathlib import Path
 
 from deep_translator import GoogleTranslator
 
+# 中文化范围：全部主线教程与练习 Notebook。
 NOTEBOOKS = [
     "1_policy_optimization_introduction.ipynb",
     "2_policy_gradient.ipynb",
